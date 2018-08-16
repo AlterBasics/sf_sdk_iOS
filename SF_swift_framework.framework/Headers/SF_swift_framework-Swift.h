@@ -744,6 +744,7 @@ SWIFT_CLASS_NAMED("ChatStore")
 @property (nonatomic) int64_t create_time;
 @property (nonatomic) int16_t delivery_status;
 @property (nonatomic, copy) NSString * _Nullable direction;
+@property (nonatomic) BOOL is_displayed;
 @property (nonatomic) BOOL isMarkable;
 @property (nonatomic, copy) NSString * _Nullable message_id;
 @property (nonatomic, copy) NSString * _Nullable peer_jid;
