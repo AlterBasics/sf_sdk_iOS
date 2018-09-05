@@ -685,7 +685,7 @@ SWIFT_CLASS("_TtC18SF_swift_framework8ChatRoom")
 @interface ChatRoom : NSObject
 - (nonnull instancetype)initWithRoomJID:(JID * _Nonnull)roomJID name:(NSString * _Null_unspecified)name subject:(NSString * _Null_unspecified)subject;
 - (nonnull instancetype)initWithRoomJID:(JID * _Nonnull)roomJID name:(NSString * _Nonnull)name subject:(NSString * _Null_unspecified)subject containMember:(BOOL)containMember OBJC_DESIGNATED_INITIALIZER;
-- (nonnull instancetype)initWithRoomJID:(JID * _Nonnull)roomJID name:(NSString * _Nonnull)name subject:(NSString * _Null_unspecified)subject status:(BOOL)status OBJC_DESIGNATED_INITIALIZER;
+- (nonnull instancetype)initWithRoomJID:(JID * _Nonnull)roomJID name:(NSString * _Null_unspecified)name subject:(NSString * _Null_unspecified)subject status:(BOOL)status OBJC_DESIGNATED_INITIALIZER;
 - (NSString * _Null_unspecified)getName SWIFT_WARN_UNUSED_RESULT;
 - (void)setNameWithName:(NSString * _Nonnull)name;
 - (NSString * _Null_unspecified)getSubject SWIFT_WARN_UNUSED_RESULT;
@@ -1300,6 +1300,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) SFCoreDataMa
 - (NSManagedObjectContext * _Nonnull)getContext SWIFT_WARN_UNUSED_RESULT;
 - (void)saveLoginDetailsWithLoginData:(NSDictionary<NSString *, id> * _Nonnull)loginData success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
 - (void)saveRoasterWithRosterData:(NSArray<NSDictionary<NSString *, id> *> * _Nonnull)rosterData success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
+- (void)updateRoasterWithRosterData:(NSArray<NSDictionary<NSString *, id> *> * _Nonnull)rosterData success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
 - (void)saveChatHistoryWithChatData:(NSArray<NSDictionary<NSString *, id> *> * _Nonnull)chatData success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
 - (void)saveActiveChatWithChatData:(NSDictionary<NSString *, id> * _Nonnull)chatData success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
 - (void)saveUserPresenceWithPresenceData:(NSDictionary<NSString *, id> * _Nonnull)presenceData success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
