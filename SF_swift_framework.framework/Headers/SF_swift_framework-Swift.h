@@ -506,7 +506,6 @@ SWIFT_CLASS_NAMED("ChatArchive")
 
 @class JID;
 @class Message;
-@class NSInputStream;
 
 /// { ChatManager} manages user conversations. { ChatManager} uses
 /// { XMPPStreamManager} to manage xmpp stream with remote server. It
@@ -626,44 +625,6 @@ SWIFT_CLASS("_TtC18SF_swift_framework11ChatManager")
 /// @throws NetworkException
 /// @throws UnsupportedEncodingException
 - (BOOL)sendRawMsgWithMsg:(NSString * _Nonnull)msg error:(NSError * _Nullable * _Nullable)error;
-/// Send media content to another user. The media is sent on a transient
-/// connection. Each media sent to server is assigned an unique id; this
-/// unique id is also sent to destination user inside a {@link Message}
-/// packet. The destination user SDK makes a media request to server with
-/// this media id.
-/// @param is
-/// @param to
-/// @param callback
-- (void)sendMediaWithMessageId:(NSString * _Nonnull)messageId ins:(NSInputStream * _Nonnull)ins to:(JID * _Nonnull)to isGroup:(BOOL)isGroup success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
-- (void)sendMediaWithMessageId:(NSString * _Nonnull)messageId bytes:(NSArray<NSNumber *> * _Nonnull)bytes to:(JID * _Nonnull)to isGroup:(BOOL)isGroup success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
-/// Send media content to another user. The media is sent on a transient
-/// connection. Each media sent to server is assigned an unique id; this
-/// unique id is also sent to destination user inside a { Message}
-/// packet. The destination user SDK makes a media request to server with
-/// this media id.
-/// @param filePath
-/// @param to
-/// @param callback
-- (void)sendMediaWithMessageId:(NSString * _Nonnull)messageId filePath:(NSString * _Nonnull)filePath to:(JID * _Nonnull)to isGroup:(BOOL)isGroup success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
-/// Convenience method to send mediaId to a { JID}. A { Message}
-/// packet is created with the given mediaId and sent to
-/// { XMPPStreamManager} which writes it on the underlying connection.
-/// @param msg
-/// raw text to be sent to server within a message packet
-/// @param to
-/// receiver { JID}
-- (BOOL)sendMediaMessageWithMessageId:(NSString * _Nonnull)messageId mediaId:(NSString * _Nonnull)mediaId toJID:(JID * _Nonnull)toJID SWIFT_WARN_UNUSED_RESULT;
-/// A { Message} packet is created with the given mediaId and sent to
-/// { XMPPStreamManager} which writes it on the underlying connection. A
-/// true value for flag ‘isGroup’ indicates that messages is intended to be
-/// sent to a group.
-/// @param msg
-/// raw text to be sent to server within a message packet
-/// @param to
-/// receiver { JID}
-/// @param isGroup
-/// true if messages being sent to a group’ otherwise false
-- (BOOL)sendMediaMessageWithMessageId:(NSString * _Nonnull)messageId mediaId:(NSString * _Nonnull)mediaId toJID:(JID * _Nonnull)toJID isGroup:(BOOL)isGroup SWIFT_WARN_UNUSED_RESULT;
 /// Retrieve a media from server. Typically, client application will invoke
 /// this method once it receives a media id inside a { Message} from a
 /// {@link JID}. Upon receiving the media id, client may request media from
@@ -676,7 +637,8 @@ SWIFT_CLASS("_TtC18SF_swift_framework11ChatManager")
 /// @param mediaId
 /// @param callback
 - (void)retrieveMediaWithMediaId:(NSString * _Nonnull)mediaId success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
-- (void)saveMsgInDatabaseWithConversationId:(NSString * _Null_unspecified)conversationId messageId:(NSString * _Nonnull)messageId content:(NSString * _Nonnull)content type:(NSString * _Nonnull)type jid:(NSString * _Nonnull)jid isGroup:(BOOL)isGroup isMarkable:(BOOL)isMarkable success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
+- (void)saveMediaMsgInDatabaseWithConversationId:(NSString * _Null_unspecified)conversationId messageId:(NSString * _Nonnull)messageId mediaId:(NSString * _Nonnull)mediaId mediaPath:(NSString * _Nonnull)mediaPath type:(NSString * _Nonnull)type thumb:(NSString * _Nonnull)thumb jid:(NSString * _Nonnull)jid isGroup:(BOOL)isGroup isMarkable:(BOOL)isMarkable success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
+- (void)saveMsgInDatabaseWithConversationId:(NSString * _Null_unspecified)conversationId messageId:(NSString * _Nonnull)messageId content:(NSString * _Nonnull)content jid:(NSString * _Nonnull)jid isGroup:(BOOL)isGroup isMarkable:(BOOL)isMarkable success:(void (^ _Nonnull)(NSString * _Nonnull))success failure:(void (^ _Nonnull)(NSString * _Nonnull))failure;
 @end
 
 @class ChatRoomMember;
@@ -915,6 +877,7 @@ SWIFT_CLASS("_TtC18SF_swift_framework2IQ")
 - (nonnull instancetype)initWithId:(NSString * _Nonnull)id SWIFT_UNAVAILABLE;
 @end
 
+@class NSInputStream;
 
 /// A {@link ContentSource} implementation with {@link InputStream} as underlying
 /// byte source.
@@ -962,7 +925,7 @@ SWIFT_CLASS_NAMED("MediaStore")
 @property (nonatomic, copy) NSString * _Nullable mediaPath;
 @property (nonatomic, copy) NSString * _Nullable mediaType;
 @property (nonatomic) int64_t size;
-@property (nonatomic, copy) NSString * _Nullable thumbPath;
+@property (nonatomic, copy) NSString * _Nullable thumb;
 @property (nonatomic, strong) ChatStore * _Nullable chat;
 @end
 
